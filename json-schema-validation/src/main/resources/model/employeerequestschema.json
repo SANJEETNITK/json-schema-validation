@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://json-schema.org/draft-07/schema#",
+  "title": "Employee Request",
+  "description": "New Employee Request",
+  "type": "object",
+  "definitions": {
+    "employee" : {
+      "type": ["object","null"],
+      "properties": {
+        "id" : {
+          "type": "string"
+        },
+        "name" : {
+          "type": "string"
+        },
+        "salary" : {
+          "type": "number"
+        },
+        "age" : {
+          "type": "integer",
+          "minimum": 18,
+          "maximum": 60
+        },
+        "aadhar" : {
+          "type": ["string","null"],
+          "minLength": 12,
+          "maxLength": 12
+        },
+        "skills" : {
+          "type": ["array"],
+          "minItems": 1
+        },
+        "mobile" : {
+          "type": ["string", "null"],
+          "pattern": "[0-9]{10}"
+        },
+        "email" : {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["id", "name", "age", "aadhar", "skills", "mobile", "email"]
+    }
+  },
+  "properties": {
+    "employee": {
+      "$ref": "#/definitions/employee",
+      "description": "Details of an Employee"
+    }
+  },
+  "required": ["employee"]
+}
