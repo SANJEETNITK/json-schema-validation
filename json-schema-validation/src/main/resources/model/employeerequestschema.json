@@ -36,7 +36,8 @@
           "pattern": "[0-9]{10}"
         },
         "email" : {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "format": "email"
         }
       },
       "required": ["id", "name", "age", "aadhar", "skills", "mobile", "email"]

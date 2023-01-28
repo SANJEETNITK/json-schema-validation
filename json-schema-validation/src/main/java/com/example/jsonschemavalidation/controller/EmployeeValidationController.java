@@ -2,6 +2,8 @@ package com.example.jsonschemavalidation.controller;
 
 
 import com.example.jsonschemavalidation.request.EmployeeRequest;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,9 +28,9 @@ public class EmployeeValidationController {
         InputStream schemaAsStream = EmployeeValidationController.class.getClassLoader().getResourceAsStream("model/employeerequestschema.json");
         JsonSchema schema = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7).getSchema(schemaAsStream);
 
-        ObjectMapper om = new ObjectMapper();
-        om.setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
-        JsonNode jsonNode = om.readTree(requestBody);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+        JsonNode jsonNode = mapper.readTree(requestBody);
 
         Set<ValidationMessage> errors = schema.validate(jsonNode);
         String errorsCombined = "";
@@ -40,7 +42,10 @@ public class EmployeeValidationController {
             return errorsCombined;
         }
 
-        EmployeeRequest request = om.readValue(requestBody, EmployeeRequest.class);
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
+        EmployeeRequest request = mapper.readValue(requestBody, EmployeeRequest.class);
         return "Request Validated successfully" + "\n" + request.toString();
     }
 
