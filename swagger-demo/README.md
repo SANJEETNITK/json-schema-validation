@@ -1,0 +1,1 @@
+# This project is an example for Swagger implementation in Spring boot project.
