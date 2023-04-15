@@ -1,0 +1,1 @@
+# An example for rabbitmq which can handle multiple data-types in a single queue
