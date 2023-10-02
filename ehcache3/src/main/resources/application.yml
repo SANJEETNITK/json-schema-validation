@@ -1,0 +1,16 @@
+spring:
+    cache:
+        jcache:
+            config: "classpath:ehcache.xml"
+    datasource:
+        password: postgres
+        url: jdbc:postgresql://localhost:5432/postgres?currentSchema=ehcache3-schema
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: create
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.SQLServer2012Dialect
+                format_sql: true
+        show-sql: true
